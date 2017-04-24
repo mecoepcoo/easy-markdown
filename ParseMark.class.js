@@ -16,5 +16,9 @@ var ParseMark = (function () {
      */
     ParseMark.prototype.getLine = function (lineNum) {
     };
+    ParseMark.prototype.isLastLine = function () {
+    };
+    ParseMark.prototype.isEmptyLine = function () {
+    };
     return ParseMark;
 }());

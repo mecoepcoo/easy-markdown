@@ -20,6 +20,12 @@ class ParseMark {
 
     }
 
+    private isLastLine(): boolean {
 
+    }
+
+    private isEmptyLine(): boolean {
+
+    }
 }
 
