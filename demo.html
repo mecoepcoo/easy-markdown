@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="renderer" content="webkit">
+    <title>Title</title>
+    <script src="ParseMark.class.js"></script>
+    <script src="demo.js"></script>
+</head>
+<body>
+<textarea name="mark" id="mark" cols="200" rows="40" title="mark">
+# wamp环境快速搭建
+
+本文介绍使用集成环境软件快速搭建wamp开发环境。
+
+[TOC]
+
+## 1. 名词解释
+
+**wamp** 是一系列软件合集的名称，是一个集成开发环境：
+
+- **w** 代表windows操作系统
+
+- **a** 代表Apache服务器软件，它可以运行在几乎所有的计算机平台，用以提供服务器服务
+
+- **m** 代表mySQL服数据库管理软件
+
+- **p** 代表PHP
+
+    <!--more-->
+
+## 2. wampserver
+
+### 2.1 下载安装
+
+下载并安装wampserver软件，本文以wampserver2.5为例。
+
+在安装过程中，除按需要修改安装路径外，其余都直接确定或点下一步即可。环境不建议安装在c盘，因为站点需要部署在环境的安装目录。
+
+### 2.2运行环境
+
+初次打开wamp软件，观察系统右下角的wamp小图标，**如果图标显示为绿色，则环境运行成功**，如果图标显示不为绿色，则检查以下几方面。
+
+> 提示：右键点击右下角小图标可以切换程序语言，可选中文
+>
+> ​         左键点击右下角小图标，选择重新启动所有服务可以重新开启全部服务
+
+左键点击右下角小图标，选择apache-service-**测试80端口**，观察弹出窗口，查看80端口是否被占用，如被占用，找到并关闭占用端口的程序（win10一般为iis），关闭的方法具体参考百度，关闭后重启所有服务，测试是否运行成功。
+
+左键点击右下角小图标，选择apache-service-**安装服务** ，安装后重启所有服务，测试是否运行成功。
+
+### 2.3 修改配置
+
+在wampserver集成环境中，mySQL的默认用户名为root，默认密码为空，可通过以下方法修改：
+
+右键点击右下角小图标，选择mySQL-**mySQL控制台** ，输入命令：
+
+```sql
+mysqladmin -u USER -p password PASSWORD
+```
+
+控制台会提示输入原始密码，按回车直接确认，若控制台直接提示输入密码，则按回车跳过，随后输入：
+
+```sql
+#修改密码
+UPDATE user SET password=PASSWORD('123456') WHERE user='root';
+#是修改立即生效
+FLUSH PRIVILEGES;
+```
+
+则可把密码设置为“123456”（不含引号）。
+
+随后输入exit或\q，即可退出控制台。
+
+### 2.4 部署站点
+
+将网站存放到wampsever安装的根目录下的www中，即可部署站点。
+
+## 3. PHPstudy
+
+phpstudy是可灵活切换各软件版本，并可同时部署多站点的集成环境。
+
+### 3.1 下载安装
+
+在phpstudy官网[http://www.phpstudy.net/](http://www.phpstudy.net/) 下载并安装程序。
+
+点击主界面中的启动，运行状态为绿灯，即可启动服务。
+
+若apache服务启动不了，则百度检查80端口是否被占用的方法，关闭占用80端口的程序。
+
+### 3.2 切换版本
+
+点击主界面右下角的“其他选项菜单”，选择“php版本切换”，即可切换版本，切换后手动重启服务。
+
+### 3.3 多站点
+
+点击“其他选项菜单”，选择“站点域名管理”，设置好网站域名（自定义），网站目录（一般在PHPstudy安装目录的www文件夹下新建目录），点击新增，然后点击“保存设置并生成配置文件”。
+
+随后修改windows的hosts文件，hosts文件在C:\Windows\System32\drivers\etc目录下，使用记事本或其他文本工具打开，在末尾添加：127.0.0.1 www.site.com，www.site.com为你刚才设置的站点域名，设置了多个站点，则添加多条记录，示例如下：
+
+```html
+127.0.0.1 www.site.com
+127.0.0.1 www.site2.com
+127.0.0.1 www.site3.com
+```
+
+### 3.4 部署站点
+
+将网站存放在设置的目录，并通过相应的域名访问即可。
+
+
+
+> May 11, 2016 By 天真
+
+</textarea>
+
+
+</body>
+</html>

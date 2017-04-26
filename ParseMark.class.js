@@ -1,24 +1,85 @@
 /**
  * Created by tianzhen on 17-4-23.
  */
-var ParseMark = (function () {
-    function ParseMark() {
+var Reader = (function () {
+    function Reader(id) {
+        this.reader = document.getElementById(id).innerHTML;
+        this.lines = this.getLines();
+        // this.parser = new Parser(this.getLineText(10));
     }
+    Reader.prototype.testLines = function (index) {
+        return index < this.lines.length;
+    };
+    Reader.prototype.runParser = function () {
+        var readerIndex = 0;
+        while (this.testLines(readerIndex)) {
+            //获取行文本
+            this.parser = new Parser(this.getLineText(readerIndex));
+            if (!this.parser.isEmptyLine()) {
+                console.log(this.parser.line);
+            }
+            else {
+                console.log("space");
+            }
+            readerIndex++;
+        }
+    };
     /*获取文本，文本按html格式解析*/
-    ParseMark.prototype.getHtml = function () {
+    Reader.prototype.getHtml = function () {
+        this.runParser();
     };
     /*获取文本，文本按字符串解析，特殊符号将被转义*/
-    ParseMark.prototype.getText = function () {
+    Reader.prototype.getText = function () {
     };
     /**
-     * 获取一行
-     * @param lineNum 行号
+     * 获取一行文本
+     * @param lineNum
+     * @returns {string}
      */
-    ParseMark.prototype.getLine = function (lineNum) {
+    Reader.prototype.getLineText = function (lineNum) {
+        this.oneLineText = this.getLines()[lineNum];
+        return this.oneLineText;
     };
-    ParseMark.prototype.isLastLine = function () {
+    Reader.prototype.getLines = function () {
+        this.lines = this.reader.split("\n");
+        return this.lines;
     };
-    ParseMark.prototype.isEmptyLine = function () {
+    Reader.prototype.analyse = function () {
     };
-    return ParseMark;
+    return Reader;
+}());
+var Parser = (function () {
+    function Parser(line) {
+        this.line = line;
+    }
+    Parser.prototype.isLastLine = function () {
+    };
+    Parser.prototype.isEmptyLine = function () {
+        return this.line == "";
+    };
+    Parser.prototype.isHeading = function () {
+    };
+    Parser.prototype.isUnorderedList = function () {
+    };
+    Parser.prototype.isOrderedList = function () {
+    };
+    Parser.prototype.isText = function () {
+    };
+    Parser.prototype.isHr = function () {
+    };
+    Parser.prototype.isBlockQuote = function () {
+    };
+    Parser.prototype.isCodeBlock = function () {
+    };
+    Parser.prototype.isImage = function () {
+    };
+    Parser.prototype.isLink = function () {
+    };
+    Parser.prototype.isStrongText = function () {
+    };
+    Parser.prototype.isEmText = function () {
+    };
+    Parser.prototype.isCodeLine = function () {
+    };
+    return Parser;
 }());
