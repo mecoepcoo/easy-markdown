@@ -3,6 +3,7 @@
  */
 var Reader = (function () {
     function Reader(id) {
+        //获取全部文本
         this.reader = document.getElementById(id).innerHTML;
         this.lines = this.getLines();
         // this.parser = new Parser(this.getLineText(10));
@@ -12,17 +13,35 @@ var Reader = (function () {
     };
     Reader.prototype.runParser = function () {
         var readerIndex = 0;
+        var hasParse = [];
+        var tempStr = "";
+        var tempArr = "";
         while (this.testLines(readerIndex)) {
             //获取行文本
             this.parser = new Parser(this.getLineText(readerIndex));
-            if (!this.parser.isEmptyLine()) {
-                console.log(this.parser.line);
+            //判断空白行
+            if (this.parser.isEmptyLine()) {
+                hasParse.push("\n");
+                readerIndex++;
+                continue;
             }
-            else {
-                console.log("space");
+            //判断标题
+            if (this.parser.isHeading()) {
+                var count = 0;
+                tempArr = this.parser.line.split(" ");
+                for (var i = 0; i < tempArr[0].length; i++) {
+                    if (tempArr[0][i] == "#") {
+                        count++;
+                    }
+                }
+                tempStr = this.parser.line.replace(this.parser.heading, "");
+                hasParse.push("<h" + count + ">" + tempStr + "</h" + count + ">");
+                readerIndex++;
+                continue;
             }
             readerIndex++;
         }
+        console.log(hasParse);
     };
     /*获取文本，文本按html格式解析*/
     Reader.prototype.getHtml = function () {
@@ -50,14 +69,20 @@ var Reader = (function () {
 }());
 var Parser = (function () {
     function Parser(line) {
+        this.heading = /^(#{1,6}\s*)/;
         this.line = line;
     }
     Parser.prototype.isLastLine = function () {
     };
+    /**
+     * 判断空行
+     * @returns {boolean}
+     */
     Parser.prototype.isEmptyLine = function () {
         return this.line == "";
     };
     Parser.prototype.isHeading = function () {
+        return this.heading.test(this.line);
     };
     Parser.prototype.isUnorderedList = function () {
     };
