@@ -15,7 +15,8 @@ var Reader = (function () {
         var readerIndex = 0;
         var hasParse = [];
         var tempStr = "";
-        var tempArr = "";
+        var tempArr = [];
+        var tempParse = null;
         while (this.testLines(readerIndex)) {
             //获取行文本
             this.parser = new Parser(this.getLineText(readerIndex));
@@ -36,6 +37,19 @@ var Reader = (function () {
                 }
                 tempStr = this.parser.line.replace(this.parser.heading, "");
                 hasParse.push("<h" + count + ">" + tempStr + "</h" + count + ">");
+                readerIndex++;
+                continue;
+            }
+            if (this.parser.isHr()) {
+                hasParse.push("<hr>");
+                readerIndex++;
+                continue;
+            }
+            if (this.parser.isBlockQuote()) {
+                tempStr = this.parser.line.replace(this.parser.blockQuote, "");
+                tempStr += tempStr + "\n";
+                //指针下移
+                hasParse.push("<blockquote>" + tempStr + "</blockquote>");
                 readerIndex++;
                 continue;
             }
@@ -70,6 +84,8 @@ var Reader = (function () {
 var Parser = (function () {
     function Parser(line) {
         this.heading = /^(#{1,6}\s*)/;
+        this.hr = /^(\*{3,}|-{3,})/;
+        this.blockQuote = /^(&gt;\s+)/;
         this.line = line;
     }
     Parser.prototype.isLastLine = function () {
@@ -91,8 +107,10 @@ var Parser = (function () {
     Parser.prototype.isText = function () {
     };
     Parser.prototype.isHr = function () {
+        return this.hr.test(this.line);
     };
     Parser.prototype.isBlockQuote = function () {
+        return this.blockQuote.test(this.line);
     };
     Parser.prototype.isCodeBlock = function () {
     };

@@ -26,7 +26,8 @@ class Reader {
         let readerIndex: number = 0;
         let hasParse: Array<string> = [];
         let tempStr = "";
-        let tempArr = "";
+        let tempArr = [];
+        let tempParse = null;
         while (this.testLines(readerIndex)) {
             //获取行文本
             this.parser = new Parser(this.getLineText(readerIndex));
@@ -48,17 +49,31 @@ class Reader {
                     }
                 }
 
-                tempStr = this.parser.line.replace(this.parser.heading,"");
+                tempStr = this.parser.line.replace(this.parser.heading, "");
 
                 hasParse.push("<h" + count + ">" + tempStr + "</h" + count + ">");
                 readerIndex++;
                 continue;
             }
 
+            if(this.parser.isHr()) {
+                hasParse.push("<hr>");
+                readerIndex++;
+                continue;
+            }
+
+            if(this.parser.isBlockQuote()) {
+                tempStr = this.parser.line.replace(this.parser.blockQuote, "");
+                tempStr += tempStr + "\n";
+
+                //指针下移
 
 
 
-
+                hasParse.push("<blockquote>" + tempStr + "</blockquote>");
+                readerIndex++;
+                continue;
+            }
             readerIndex++;
 
         }
@@ -102,6 +117,8 @@ class Reader {
 class Parser {
     line: string;
     heading = /^(#{1,6}\s*)/;
+    hr = /^(\*{3,}|-{3,})/;
+    blockQuote = /^(&gt;\s+)/;
 
     constructor(line: string) {
         this.line = line;
@@ -136,11 +153,11 @@ class Parser {
     }
 
     public isHr(): boolean {
-
+        return this.hr.test(this.line);
     }
 
     public isBlockQuote(): boolean {
-
+        return this.blockQuote.test(this.line);
     }
 
     public isCodeBlock(): boolean {
