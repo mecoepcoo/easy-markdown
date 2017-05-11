@@ -1,0 +1,90 @@
+@charset "utf-8";
+//init
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td { margin:0; padding:0; }
+body { background:#fff; color:#555; font-size:16px; font-family: "Microsoft Yahei", Verdana, Arial, Helvetica, sans-serif; }
+td,th,caption { font-size:16px; }
+input, textarea, select, button { font:16px "Microsoft Yahei",Verdana,Helvetica,Arial,sans-serif; }
+table { border-collapse:collapse; }
+
+
+
+.a(@f_color: #555, @hover_color: #fdb125) {
+  color: @f_color;
+  text-decoration: none;
+  &:hover {
+    color: @hover_color;
+  }
+}
+
+@full: 100%;
+
+html, body {
+  height: @full;
+}
+
+a {
+  .a(#0600ff, #f00);
+}
+
+#layout {
+  overflow: hidden;
+}
+
+#layout, #editor-form, #mark, #preview {
+  height: @full;
+}
+
+#editor, #preview {
+  float: left;
+  width: 50%;
+  height: @full;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+#preview {
+  padding: 20px;
+  background-color: #f0f8ff;
+}
+
+#mark {
+  padding: 20px;
+  height: @full;
+  width: @full;
+  border: none;
+  resize: none;
+  color: #555;
+  letter-spacing: 1px;
+  line-height: 22px;
+  //overflow-y: auto;
+  &:focus {
+    outline: none;
+  }
+}
+
+#mark, #preview {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  /*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
+  &::-webkit-scrollbar{
+    width: 8px;
+    height: 8px;
+    background-color: #f5f5f5;
+  }
+  /*定义滚动条的轨道，内阴影及圆角*/
+  &::-webkit-scrollbar-track{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    border-radius: 10px;
+    background-color: #f5f5f5;
+  }
+  /*定义滑块，内阴影及圆角*/
+  &::-webkit-scrollbar-thumb{
+    /*width: 10px;*/
+    height: 20px;
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+  }
+}

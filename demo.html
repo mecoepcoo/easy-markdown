@@ -5,20 +5,20 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="renderer" content="webkit">
     <title>Title</title>
-    <script src="ParseMark.class.js"></script>
+    <link rel="stylesheet" href="lib/editor.css">
+    <script src="lib/easy-markdown.js"></script>
     <script src="demo.js"></script>
 </head>
 <body>
-<div id="test">click me</div>
-<textarea name="mark" id="mark" cols="100" rows="10" title="mark">
-如果是html的话<a href="www" style="color: red">hey guys!</a>那么就是<a href="www">hey guys!</a>
-    <a href="hello">hey</a>
+<div id="layout">
+    <div id="editor">
+        <form action="" id="editor-form">
+            <textarea name="mark" id="mark" autofocus="autofocus" placeholder="PI&nbsp;PI&nbsp;XIA,&nbsp;LET'S&nbsp;GO!"></textarea>
+        </form>
+    </div>
+    <div id="preview"></div>
+</div>
 
-# wamp环境快速搭建
-
-
-</textarea>
-<div id="text">预览</div>
 
 </body>
 </html>

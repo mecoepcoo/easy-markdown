@@ -1,5 +1,6 @@
 /**
- * Created by tianzhen on 17-4-23.
+ * easy-markdown - a simple markdown to html parser
+ * Copyright (c) 2017, Tianzhen(340349237@qq.com). (MIT License).
  */
 class Reader {
     reader: string;
@@ -10,7 +11,7 @@ class Reader {
 
     constructor(id: string) {
         //获取全部文本
-        this.reader =  document.getElementById(id).value;
+        this.reader =  (document.getElementById(id) as any).value;
 
         this.lines = this.getLines();
     }
@@ -21,7 +22,7 @@ class Reader {
 
     private runParser() {
         let readerIndex: number = 0;
-        let hasParse: Array<string> = [];
+        let hasParse = [];
         let tempStr = "";
         let tempArr = [];
         let nextLine = null;
@@ -134,24 +135,25 @@ class Reader {
 
             readerIndex++;
         }
-        console.log(hasParse);
-        var test = "";
-        for (var x = 0; x < hasParse.length; x++) {
-            test += hasParse[x];
-        }
-        document.getElementById("text").innerHTML = test;
+        return hasParse;
     }
 
     /*获取文本，文本按html格式解析*/
     public getHtml() {
-        this.runParser();
-
-
+        return this.runParser();
     }
 
-    /*获取文本，文本按字符串解析，特殊符号将被转义*/
-    public getText() {
-
+    /**
+     * 将解析后的字符串渲染到节点
+     * @param elementId 要显示内容的节点id
+     */
+    public showHtml(elementId) {
+        let ele: any = document.getElementById(elementId);
+        let tempStr = "";
+        for (let text of this.getHtml()) {
+            tempStr +=text;
+        }
+        ele.innerHTML = tempStr;
     }
 
     /**
