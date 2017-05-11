@@ -1,0 +1,88 @@
+.a(@f_color: #0600ff, @hover_color: #726fff) {
+  color: @f_color;
+  text-decoration: none;
+  &:hover {
+    color: @hover_color;
+  }
+}
+
+.easy-markdown {
+  @font_color: #555;
+  @font_size: 16px;
+  @font_family: "Microsoft Yahei", Ubuntu, Verdana, Arial, Helvetica, sans-serif;
+  @letter_spacing: 1px;
+  @border_color: #e5e5e5;
+  color: @font_color;
+  font-size: @font_size;
+  font-family: @font_family;
+  letter-spacing: @letter_spacing;
+  h1, h2, h3, h4, h5, h6 {
+    color: #333;
+    margin: 5px 0;
+    padding: 8px 0;
+    border-bottom: 1px solid @border_color;
+  }
+  hr {
+    margin: 15px 0;
+    border-color: @border_color;
+    border-style: solid;
+  }
+  blockquote {
+    padding: 15px 20px;
+    border-left: 5px solid #c5c5c5;
+    background-color: #eee;
+  }
+  ul, ol {
+    margin: 10px 20px;
+    li {
+      padding: 2px 0;
+    }
+  }
+  pre {
+    margin: 12px 0;
+    padding: 15px;
+    line-height: 1.5;
+    font-size: @font_size - 2;
+    background-color: #eee;
+    overflow-x: auto;
+    letter-spacing: 0;
+    &::-webkit-scrollbar{
+      width: 6px;
+      height: 6px;
+      background-color: #f5f5f5;
+    }
+    /*定义滚动条的轨道，内阴影及圆角*/
+    &::-webkit-scrollbar-track{
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      border-radius: 10px;
+      background-color: #f5f5f5;
+    }
+    /*定义滑块，内阴影及圆角*/
+    &::-webkit-scrollbar-thumb{
+      /*width: 10px;*/
+      height: 20px;
+      border-radius: 10px;
+      -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+      background-color: #555;
+    }
+  }
+  code {
+    margin: 0 2px;
+    padding: 3px 6px;
+    background-color: #eee;
+  }
+  a {
+    .a();
+  }
+  strong {
+    font-weight: bold;
+    color: #333;
+  }
+  em {
+    font-style: italic;
+  }
+  p {
+    line-height: 1.5;
+    text-align: justify;
+  }
+}

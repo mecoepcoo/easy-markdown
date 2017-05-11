@@ -32,7 +32,7 @@ class Reader {
             // console.dir(this.parser.line);
             //判断空白行
             if(this.parser.isEmptyLine()) {
-                hasParse.push("\n");
+                hasParse.push("<br>");
                 readerIndex++;
                 continue;
             }
@@ -112,15 +112,18 @@ class Reader {
             //判断代码块
             if(this.parser.isCodeBlock()) {
                 tempStr = this.parser.line.replace(this.parser.codeBlock, "");
-                tempStr = `<pre language="${tempStr}">\n`;
+                tempStr = `<pre class="${tempStr}">\n`;
                 //指针下移
                 nextLine = new Parser(this.getLineText(readerIndex + 1));
                 while ((!nextLine.isCodeBlock()) && this.testLines(readerIndex)) {
-                    tempStr += nextLine.line + "\n";
+                    let temp = document.createElement("div");
+                    temp.innerText = nextLine.line;
+                    tempStr += temp.innerHTML + "\n";
                     readerIndex++;
                     nextLine = new Parser(this.getLineText(readerIndex + 1));
                 }
                 tempStr = `<div>${tempStr}</pre></div>\n`;
+
                 hasParse.push(tempStr);
                 readerIndex += 2;
                 continue;
@@ -153,6 +156,7 @@ class Reader {
         for (let text of this.getHtml()) {
             tempStr +=text;
         }
+        tempStr = `<div class="easy-markdown">${tempStr}</div>`;
         ele.innerHTML = tempStr;
     }
 
@@ -309,3 +313,4 @@ class Parser {
 
 }
 
+//todo 待添加：emoji表情功能，代码高亮，代码行号,自动目录生成，自动滚动条位置

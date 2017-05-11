@@ -45,7 +45,10 @@ a {
 
 #preview {
   padding: 20px;
-  background-color: #f0f8ff;
+  background-color: #fcfcfc;
+  pre {
+    overflow-x: auto;
+  }
 }
 
 #mark {
@@ -67,6 +70,7 @@ a {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
+  overflow-y: auto;
   /*定义滚动条宽高及背景，宽高分别对应横竖滚动条的尺寸*/
   &::-webkit-scrollbar{
     width: 8px;
