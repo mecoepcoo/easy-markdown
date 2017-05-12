@@ -21,6 +21,33 @@ easy-markdown基于原生js开发，无需任何依赖，在页面中引入：
 ```
 highlight.js文档：[https://highlightjs.org/usage/](https://highlightjs.org/usage/)
 
+使用解释器：
+```html
+<textarea id="mark"></textarea>
+<div id="preview"></div>
+```
+```javascript
+window.onload = function () {
+    var markdown = new Reader("mark");
+    //获得所有文本
+    markdown.getHtml();
+    //渲染文本到页面元素
+    markdown.showHtml("preview");
+    //获取指定行文本(示例为第0行)
+    markdown.getLineText(0);
+    //获取编辑器分组后的原始文本
+    markdown.getLines();
+};
+```
+
+监听键盘事件实现实时解析：
+```javascript
+document.getElementById("mark").addEventListener("keyup", function () {
+    var markdown = new Reader("mark");
+    markdown.showHtml("preview");
+});
+```
+
 # 效果预览
 标题：
 # 标题1
