@@ -4,14 +4,20 @@
  */
 class Reader {
     reader: string;
+    readerTransfer: string;
     parser: any;
 
     lines: Array<string>;
     oneLineText: string;
 
     constructor(id: string) {
-        //获取全部文本
+        //获取全部原始文本
         this.reader =  (document.getElementById(id) as any).value;
+
+        //获取转移后的原始文本
+        let temp = document.createElement("div");
+        temp.innerText = this.reader;
+        this.readerTransfer = temp.innerHTML;
 
         this.lines = this.getLines();
     }

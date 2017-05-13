@@ -29,7 +29,11 @@ highlight.js文档：[https://highlightjs.org/usage/](https://highlightjs.org/us
 ```javascript
 window.onload = function () {
     var markdown = new Reader("mark");
-    //获得所有文本
+    //获取原始文本
+    markdown.reader;
+    //获取转义后的原始文本
+    markdown.readerTransfer;
+    //以数组形式获得所有文本
     markdown.getHtml();
     //渲染文本到页面元素
     markdown.showHtml("preview");
