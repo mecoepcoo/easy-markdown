@@ -119,15 +119,17 @@ class Reader {
             if(this.parser.isCodeBlock()) {
                 tempStr = this.parser.line.replace(this.parser.codeBlock, "");
                 tempStr = `<pre class="${tempStr}">\n`;
+
                 //指针下移
                 nextLine = new Parser(this.getLineText(readerIndex + 1));
-                while ((!nextLine.isCodeBlock()) && this.testLines(readerIndex)) {
+                while ((!nextLine.isCodeBlock()) && this.testLines(readerIndex + 1)) {
                     let temp = document.createElement("div");
                     temp.innerText = nextLine.line;
                     tempStr += temp.innerHTML + "\n";
                     readerIndex++;
                     nextLine = new Parser(this.getLineText(readerIndex + 1));
                 }
+
                 tempStr = `<div>${tempStr}</pre></div>\n`;
 
                 hasParse.push(tempStr);
