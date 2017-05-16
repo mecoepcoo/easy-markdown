@@ -118,7 +118,7 @@ class Reader {
             //判断代码块
             if(this.parser.isCodeBlock()) {
                 tempStr = this.parser.line.replace(this.parser.codeBlock, "");
-                tempStr = `<pre class="${tempStr}">\n`;
+                tempStr = `<pre><code class="${tempStr}">`;
 
                 //指针下移
                 nextLine = new Parser(this.getLineText(readerIndex + 1));
@@ -130,7 +130,7 @@ class Reader {
                     nextLine = new Parser(this.getLineText(readerIndex + 1));
                 }
 
-                tempStr = `<div>${tempStr}</pre></div>\n`;
+                tempStr = `<div>${tempStr}</code></pre></div>\n`;
 
                 hasParse.push(tempStr);
                 readerIndex += 2;
